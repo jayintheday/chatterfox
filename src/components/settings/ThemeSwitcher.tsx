@@ -3,13 +3,13 @@ import { useTranslation } from "react-i18next";
 import { SettingContainer } from "../ui/SettingContainer";
 
 type ThemeOption =
-  | "amber-den"
-  | "twilight-forest"
+  | "midnight"
+  | "deep-ocean"
   | "lavender-haze"
   | "sunset-dreams";
 
 const THEME_STORAGE_KEY = "cf-theme";
-const DEFAULT_THEME: ThemeOption = "amber-den";
+const DEFAULT_THEME: ThemeOption = "midnight";
 
 interface ThemeSwitcherProps {
   grouped?: boolean;
@@ -17,14 +17,14 @@ interface ThemeSwitcherProps {
 
 const themes: { id: ThemeOption; nameKey: string; colors: string[] }[] = [
   {
-    id: "amber-den",
-    nameKey: "settings.theme.amberDen",
-    colors: ["#ffd88a", "#e6960a", "#c4724e"],
+    id: "midnight",
+    nameKey: "settings.theme.midnight",
+    colors: ["#94a3b8", "#64748b", "#475569"],
   },
   {
-    id: "twilight-forest",
-    nameKey: "settings.theme.twilightForest",
-    colors: ["#a8e6b4", "#5cb870", "#38bdf8"],
+    id: "deep-ocean",
+    nameKey: "settings.theme.deepOcean",
+    colors: ["#7dd3fc", "#0284c7", "#0369a1"],
   },
   {
     id: "lavender-haze",

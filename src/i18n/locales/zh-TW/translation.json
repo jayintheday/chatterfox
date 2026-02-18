@@ -399,8 +399,8 @@
     "theme": {
       "title": "主題",
       "description": "選擇 ChatterFox 的視覺主題",
-      "amberDen": "琥珀巢穴",
-      "twilightForest": "暮光森林",
+      "midnight": "Midnight",
+      "deepOcean": "Deep Ocean",
       "lavenderHaze": "薰衣草霧",
       "sunsetDreams": "夕陽夢境"
     },

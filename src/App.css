@@ -267,41 +267,45 @@
 
 /* ---------------------------------------------------------
    Themes: [data-theme] overrides
-   amber-den is the default — defining it mainly for dark mode completeness
+   midnight is the default — defining it mainly for dark mode completeness
    --------------------------------------------------------- */
 
-/* ---- Amber Den (default) ---- */
-[data-theme="amber-den"] {
-  --cf-accent: #e6960a;
-  --cf-accent-soft: #ffefd4;
-  --cf-accent-hover: #c47a08;
-  --cf-hero-start: #fff8ee;
-  --cf-hero-mid: #fff3e0;
-  --cf-hero-end: #ffefd4;
-  --cf-blob-1: #ffefd4;
-  --cf-blob-2: #ffdab9;
-  --cf-blob-3: #fff8ee;
-  --cf-cta-start: #1e1d1b;
-  --cf-cta-end: #3d3a35;
+/* ---- Midnight (default) ---- */
+[data-theme="midnight"] {
+  --cf-accent: #64748b;
+  --cf-accent-soft: #f1f5f9;
+  --cf-accent-hover: #475569;
+  --cf-hero-start: #f8fafc;
+  --cf-hero-mid: #f1f5f9;
+  --cf-hero-end: #e2e8f0;
+  --cf-blob-1: #e2e8f0;
+  --cf-blob-2: #cbd5e1;
+  --cf-blob-3: #f1f5f9;
+  --cf-cta-start: #0f172a;
+  --cf-cta-end: #1e293b;
   --cf-cta-text: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
-  [data-theme="amber-den"] {
-    --cf-accent: #f5b63c;
-    --cf-accent-soft: rgba(245, 182, 60, 0.2);
-    --cf-accent-hover: #ffd88a;
-    --cf-hero-start: #2a2218;
-    --cf-hero-mid: #2c2519;
-    --cf-hero-end: #2e281c;
-    --cf-blob-1: rgba(245, 182, 60, 0.3);
-    --cf-blob-2: rgba(196, 114, 78, 0.25);
-    --cf-blob-3: rgba(255, 216, 138, 0.18);
+  [data-theme="midnight"] {
+    --cf-canvas: #0d1117;
+    --cf-surface: #161b22;
+    --cf-surface-subtle: #1e2530;
+    --cf-surface-hover: #1e2530;
+    --cf-accent: #94a3b8;
+    --cf-accent-soft: rgba(148, 163, 184, 0.2);
+    --cf-accent-hover: #cbd5e1;
+    --cf-hero-start: #0d1117;
+    --cf-hero-mid: #111622;
+    --cf-hero-end: #141b26;
+    --cf-blob-1: rgba(148, 163, 184, 0.25);
+    --cf-blob-2: rgba(100, 116, 139, 0.2);
+    --cf-blob-3: rgba(203, 213, 225, 0.15);
     --cf-blob-opacity: 0.55;
-    --cf-cta-start: #f3f1ee;
-    --cf-cta-end: #d4d0c8;
-    --cf-cta-text: #1e1d1b;
-    --cf-section-general: #f5b63c;
+    --cf-cta-start: #f1f5f9;
+    --cf-cta-end: #cbd5e1;
+    --cf-cta-text: #0f172a;
+    --cf-section-general: #94a3b8;
     --cf-section-models: #6fcf81;
     --cf-section-advanced: #56d0f8;
     --cf-section-postprocessing: #fde047;
@@ -311,43 +315,43 @@
   }
 }
 
-/* ---- Twilight Forest ---- */
-[data-theme="twilight-forest"] {
-  --cf-accent: #5cb870;
-  --cf-accent-soft: #e8f7ec;
-  --cf-accent-hover: #3a8a4e;
-  --cf-hero-start: #f0f9f2;
-  --cf-hero-mid: #e8f7ec;
-  --cf-hero-end: #dcf2e2;
-  --cf-blob-1: #dcf2e2;
-  --cf-blob-2: #b3e6c0;
-  --cf-blob-3: #f0f9f2;
-  --cf-cta-start: #1a2e1d;
-  --cf-cta-end: #2d4a32;
+/* ---- Deep Ocean ---- */
+[data-theme="deep-ocean"] {
+  --cf-accent: #0284c7;
+  --cf-accent-soft: #e0f2fe;
+  --cf-accent-hover: #0369a1;
+  --cf-hero-start: #f0f9ff;
+  --cf-hero-mid: #e0f2fe;
+  --cf-hero-end: #bae6fd;
+  --cf-blob-1: #bae6fd;
+  --cf-blob-2: #7dd3fc;
+  --cf-blob-3: #e0f2fe;
+  --cf-cta-start: #0c1a2e;
+  --cf-cta-end: #0f2847;
   --cf-cta-text: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
-  [data-theme="twilight-forest"] {
-    --cf-canvas: #151c17;
-    --cf-surface: #1e2a21;
-    --cf-surface-subtle: #2a3a2d;
-    --cf-surface-hover: #2a3a2d;
-    --cf-accent: #6fcf81;
-    --cf-accent-soft: rgba(111, 207, 129, 0.2);
-    --cf-accent-hover: #a8e6b4;
-    --cf-hero-start: #182a1d;
-    --cf-hero-mid: #1a2e20;
-    --cf-hero-end: #1d3224;
-    --cf-blob-1: rgba(111, 207, 129, 0.3);
-    --cf-blob-2: rgba(56, 189, 248, 0.22);
-    --cf-blob-3: rgba(168, 230, 180, 0.18);
+  [data-theme="deep-ocean"] {
+    --cf-canvas: #050e1a;
+    --cf-surface: #0a1628;
+    --cf-surface-subtle: #0f2040;
+    --cf-surface-hover: #0f2040;
+    --cf-accent: #38bdf8;
+    --cf-accent-soft: rgba(56, 189, 248, 0.2);
+    --cf-accent-hover: #7dd3fc;
+    --cf-hero-start: #071220;
+    --cf-hero-mid: #08162a;
+    --cf-hero-end: #0a1a32;
+    --cf-blob-1: rgba(56, 189, 248, 0.3);
+    --cf-blob-2: rgba(14, 116, 144, 0.25);
+    --cf-blob-3: rgba(125, 211, 252, 0.18);
     --cf-blob-opacity: 0.55;
-    --cf-cta-start: #eef9f1;
-    --cf-cta-end: #c8e8d0;
-    --cf-cta-text: #1a2e1d;
-    --cf-section-general: #6fcf81;
-    --cf-section-models: #56d0f8;
+    --cf-cta-start: #e0f2fe;
+    --cf-cta-end: #bae6fd;
+    --cf-cta-text: #0c1a2e;
+    --cf-section-general: #38bdf8;
+    --cf-section-models: #6fcf81;
     --cf-section-advanced: #a78bfa;
     --cf-section-postprocessing: #fde047;
     --cf-section-history: #fb923c;

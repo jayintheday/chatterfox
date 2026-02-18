@@ -399,8 +399,8 @@
     "theme": {
       "title": "Theme",
       "description": "Choose a visual theme for ChatterFox",
-      "amberDen": "Amber Den",
-      "twilightForest": "Twilight Forest",
+      "midnight": "Midnight",
+      "deepOcean": "Deep Ocean",
       "lavenderHaze": "Lavender Haze",
       "sunsetDreams": "Sunset Dreams"
     },

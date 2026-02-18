@@ -1,8 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Cog, FlaskConical, History, Info } from "lucide-react";
+import { Cog, FlaskConical, History, Info, SlidersHorizontal } from "lucide-react";
 import ChatterFoxLogo from "./icons/ChatterFoxLogo";
-import FoxIcon from "./icons/FoxIcon";
 import { IconBadge } from "./ui/IconBadge";
 import { useSettings } from "../hooks/useSettings";
 import {
@@ -34,7 +33,7 @@ interface SectionConfig {
 export const SECTIONS_CONFIG = {
   general: {
     labelKey: "sidebar.general",
-    icon: FoxIcon,
+    icon: SlidersHorizontal,
     component: GeneralSettings,
     enabled: () => true,
     accentVar: "var(--cf-section-general)",

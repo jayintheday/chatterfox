@@ -47,9 +47,7 @@ export const ToggleSwitch: React.FC<ToggleSwitchProps> = ({
         <div
           className="w-[44px] h-[24px] rounded-full transition-all duration-200 ease-in-out peer-focus:ring-2 peer-focus:ring-cf-accent/30"
           style={{
-            background: checked
-              ? "linear-gradient(135deg, var(--cf-toggle-on-start), var(--cf-toggle-on-end))"
-              : "var(--cf-toggle-off)",
+            background: checked ? "var(--cf-accent)" : "var(--cf-toggle-off)",
           }}
         >
           {/* Knob */}
