@@ -7,7 +7,7 @@
     "cancel": "Cancel"
   },
   "sidebar": {
-    "general": "General (Dev)",
+    "general": "General",
     "models": "Models",
     "advanced": "Advanced",
     "postProcessing": "Post Process",
