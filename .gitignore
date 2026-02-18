@@ -37,3 +37,16 @@ blob-report/
 
 .direnv
 .envrc
+
+# Environment / secrets — never commit these
+.env
+.env.*
+!.env.example
+
+# Private keys and certificates
+*.key
+*.pem
+*.p12
+*.pfx
+*.cer
+*.der
