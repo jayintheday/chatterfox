@@ -430,6 +430,11 @@
           "title": "Whisper.cpp",
           "description": "High-performance inference of OpenAI's Whisper automatic speech recognition model",
           "details": "ChatterFox uses Whisper.cpp for fast, local speech-to-text processing. Thanks to the amazing work by Georgi Gerganov and contributors."
+        },
+        "handy": {
+          "title": "Handy",
+          "description": "Open source speech-to-text desktop app by CJ at handy.computer",
+          "details": "Chatterfox is based on 'Handy', the open source project by CJ at handy.computer - big thanks to them and all the work they do."
         }
       }
     }
