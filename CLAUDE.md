@@ -109,6 +109,38 @@ src/i18n/
 - Tailwind CSS for styling
 - Path aliases: `@/` → `./src/`
 
+## Releasing
+
+### Version bump — three files must always stay in sync
+
+| File | Field | Purpose |
+|---|---|---|
+| `src-tauri/tauri.conf.json` | `"version"` | Tauri runtime version — controls the app UI and auto-updater |
+| `package.json` | `"version"` | npm/bun version |
+| `src-tauri/Cargo.toml` | `version` | Compile-time `CARGO_PKG_VERSION` — used by the tray menu label |
+
+If `Cargo.toml` is out of sync, the tray menu shows a stale version while the Settings → About page shows the correct one (they read from different sources).
+
+After editing all three, commit `Cargo.lock` too (it is regenerated automatically):
+
+```bash
+git add src-tauri/tauri.conf.json package.json src-tauri/Cargo.toml src-tauri/Cargo.lock
+git commit -m "chore: bump version to X.Y.Z"
+git push origin main
+```
+
+### Triggering a release
+
+```bash
+gh workflow run release.yml --repo jayintheday/chatterfox
+# Monitor progress
+gh run list --repo jayintheday/chatterfox --workflow=release.yml
+# Publish the draft once complete
+gh release edit vX.Y.Z --repo jayintheday/chatterfox --draft=false
+```
+
+Full release checklist is in `RELEASE_AGENT.md` (gitignored — local only).
+
 ## Commit Guidelines
 
 Use conventional commits:
