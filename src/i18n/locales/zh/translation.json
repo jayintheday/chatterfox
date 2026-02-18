@@ -3,7 +3,6 @@
     "settings": "设置...",
     "checkUpdates": "检查更新...",
     "copyLastTranscript": "复制最新转录",
-    "unloadModel": "卸载模型",
     "quit": "退出",
     "cancel": "取消"
   },
@@ -21,7 +20,6 @@
     "recommended": "推荐",
     "download": "下载",
     "downloading": "下载中...",
-    "customModelDescription": "非官方支持",
     "downloadFailed": "下载失败。请重试。",
     "modelCard": {
       "accuracy": "准确度",
@@ -54,27 +52,7 @@
       },
       "moonshine-base": {
         "name": "Moonshine Base",
-        "description": "非常快速，仅支持英语。口音处理良好。"
-      },
-      "moonshine-tiny-streaming-en": {
-        "name": "Moonshine V2 Tiny",
-        "description": "超快速，仅支持英语"
-      },
-      "moonshine-small-streaming-en": {
-        "name": "Moonshine V2 Small",
-        "description": "快速，仅支持英语。速度与准确度的良好平衡。"
-      },
-      "moonshine-medium-streaming-en": {
-        "name": "Moonshine V2 Medium",
-        "description": "仅支持英语。高质量。"
-      },
-      "breeze-asr": {
-        "name": "Breeze ASR",
-        "description": "针对台湾国语优化。支持语码转换。"
-      },
-      "sense-voice-int8": {
-        "name": "SenseVoice",
-        "description": "非常快速。支持中文、英语、日语、韩语、粤语。"
+        "description": "Very fast, English only. Handles accents well."
       }
     },
     "errors": {
@@ -83,7 +61,7 @@
     },
     "permissions": {
       "title": "需要权限",
-      "description": "Handy 需要一些权限才能正常工作。",
+      "description": "ChatterFox 需要一些权限才能正常工作。",
       "microphone": {
         "title": "麦克风访问",
         "description": "需要听取您的语音进行转录。"
@@ -103,7 +81,6 @@
     }
   },
   "modelSelector": {
-    "custom": "自定义",
     "active": "活跃",
     "switching": "切换中...",
     "noModelsAvailable": "没有可用的模型",
@@ -157,7 +134,7 @@
     "general": {
       "title": "通用",
       "shortcut": {
-        "title": "Handy 快捷键",
+        "title": "ChatterFox 快捷键",
         "description": "配置启动语音转文字录制的键盘快捷键",
         "loading": "加载快捷键中...",
         "none": "未配置快捷键",
@@ -238,11 +215,7 @@
       },
       "autostart": {
         "label": "开机启动",
-        "description": "登录计算机时自动启动 Handy。"
-      },
-      "showTrayIcon": {
-        "label": "显示托盘图标",
-        "description": "在系统托盘中显示 Handy 图标。"
+        "description": "登录计算机时自动启动 ChatterFox。"
       },
       "overlay": {
         "title": "悬浮窗位置",
@@ -264,30 +237,12 @@
           "none": "无"
         }
       },
-      "typingTool": {
-        "title": "输入工具",
-        "description": "选择在直接粘贴方式下使用的 Linux 输入工具。Auto 会自动检测并使用系统中可用的最佳工具。",
-        "options": {
-          "auto": "Auto（推荐）"
-        }
-      },
       "clipboardHandling": {
         "title": "剪贴板处理",
         "description": "不修改剪贴板将在转录后保留当前剪贴板内容。复制到剪贴板将在粘贴后将转录结果留在剪贴板中。",
         "options": {
           "dontModify": "不修改剪贴板",
           "copyToClipboard": "复制到剪贴板"
-        }
-      },
-      "autoSubmit": {
-        "title": "自动提交",
-        "description": "在文本插入后自动发送所选的按键组合。macOS 上使用 Cmd+Enter，Windows/Linux 上使用 Super+Enter。",
-        "options": {
-          "off": "关闭",
-          "enter": "Enter",
-          "cmdEnter": "Cmd+Enter",
-          "superEnter": "Super+Enter",
-          "ctrlEnter": "Ctrl+Enter"
         }
       },
       "translateToEnglish": {
@@ -400,7 +355,7 @@
       },
       "updateChecks": {
         "label": "检查更新",
-        "description": "自动检查 Handy 的新版本"
+        "description": "自动检查 ChatterFox 的新版本"
       },
       "soundTheme": {
         "label": "声音主题",
@@ -460,15 +415,23 @@
         "description": "发送粘贴按键前的延迟（毫秒）。如果粘贴了错误的文本，请增加此值。"
       }
     },
+    "theme": {
+      "title": "Theme",
+      "description": "Choose a visual theme for ChatterFox",
+      "amberDen": "Amber Den",
+      "twilightForest": "Twilight Forest",
+      "lavenderHaze": "Lavender Haze",
+      "sunsetDreams": "Sunset Dreams"
+    },
     "about": {
       "title": "关于",
       "version": {
         "title": "版本",
-        "description": "Handy 的当前版本"
+        "description": "ChatterFox 的当前版本"
       },
       "appDataDirectory": {
         "title": "应用数据目录",
-        "description": "Handy 存储数据的位置"
+        "description": "ChatterFox 存储数据的位置"
       },
       "sourceCode": {
         "title": "源代码",
@@ -477,7 +440,7 @@
       },
       "supportDevelopment": {
         "title": "支持开发",
-        "description": "帮助我们继续开发 Handy",
+        "description": "帮助我们继续开发 ChatterFox",
         "button": "捐赠"
       },
       "acknowledgments": {
@@ -485,7 +448,7 @@
         "whisper": {
           "title": "Whisper.cpp",
           "description": "OpenAI Whisper 自动语音识别模型的高性能推理",
-          "details": "Handy 使用 Whisper.cpp 进行快速的本地语音转文字处理。感谢 Georgi Gerganov 和贡献者们的出色工作。"
+          "details": "ChatterFox 使用 Whisper.cpp 进行快速的本地语音转文字处理。感谢 Georgi Gerganov 和贡献者们的出色工作。"
         }
       }
     }
@@ -528,7 +491,7 @@
   },
   "accessibility": {
     "permissionsRequired": "需要辅助功能权限",
-    "permissionsDescription": "Handy 需要辅助功能权限才能输入转录的文字。",
+    "permissionsDescription": "ChatterFox 需要辅助功能权限才能输入转录的文字。",
     "openSettings": "打开系统设置",
     "dismiss": "关闭"
   },
@@ -537,10 +500,9 @@
   },
   "appLanguage": {
     "title": "应用语言",
-    "description": "更改 Handy 界面的语言"
+    "description": "更改 ChatterFox 界面的语言"
   },
   "overlay": {
-    "transcribing": "正在转录...",
-    "processing": "处理中..."
+    "transcribing": "正在转录..."
   }
 }

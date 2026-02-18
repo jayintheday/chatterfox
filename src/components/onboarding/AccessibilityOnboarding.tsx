@@ -10,7 +10,9 @@ import {
 import { toast } from "sonner";
 import { commands } from "@/bindings";
 import { useSettingsStore } from "@/stores/settingsStore";
-import HandyTextLogo from "../icons/HandyTextLogo";
+import ChatterFoxLogo from "../icons/ChatterFoxLogo";
+import { AtmosphericBackground } from "../ui/AtmosphericBackground";
+import { IconBadge } from "../ui/IconBadge";
 import { Keyboard, Mic, Check, Loader2 } from "lucide-react";
 
 interface AccessibilityOnboardingProps {
@@ -208,7 +210,8 @@ const AccessibilityOnboarding: React.FC<AccessibilityOnboardingProps> = ({
   ) {
     return (
       <div className="h-screen w-screen flex items-center justify-center">
-        <Loader2 className="w-8 h-8 animate-spin text-text/50" />
+        <AtmosphericBackground />
+        <Loader2 className="w-8 h-8 animate-spin text-cf-text-tertiary" />
       </div>
     );
   }
@@ -217,12 +220,15 @@ const AccessibilityOnboarding: React.FC<AccessibilityOnboardingProps> = ({
   if (allGranted) {
     return (
       <div className="h-screen w-screen flex flex-col items-center justify-center gap-4">
-        <div className="p-4 rounded-full bg-emerald-500/20">
-          <Check className="w-12 h-12 text-emerald-400" />
+        <AtmosphericBackground />
+        <div className="relative z-10 flex flex-col items-center gap-4">
+          <div className="p-4 rounded-full bg-cf-mint/20">
+            <Check className="w-12 h-12 text-cf-mint" />
+          </div>
+          <p className="text-lg font-semibold text-cf-text-primary">
+            {t("onboarding.permissions.allGranted")}
+          </p>
         </div>
-        <p className="text-lg font-medium text-text">
-          {t("onboarding.permissions.allGranted")}
-        </p>
       </div>
     );
   }
@@ -230,47 +236,53 @@ const AccessibilityOnboarding: React.FC<AccessibilityOnboardingProps> = ({
   // Show permissions request screen
   return (
     <div className="h-screen w-screen flex flex-col p-6 gap-6 items-center justify-center">
-      <div className="flex flex-col items-center gap-2">
-        <HandyTextLogo width={200} />
-      </div>
+      <AtmosphericBackground />
+      <div className="relative z-10 flex flex-col items-center gap-6 max-w-md w-full">
+        <div className="flex flex-col items-center gap-2">
+          <ChatterFoxLogo width={200} />
+        </div>
 
-      <div className="max-w-md w-full flex flex-col items-center gap-4">
         <div className="text-center mb-2">
-          <h2 className="text-xl font-semibold text-text mb-2">
+          <h2 className="text-[20px] font-bold text-cf-text-primary mb-2">
             {t("onboarding.permissions.title")}
           </h2>
-          <p className="text-text/70">
+          <p className="text-cf-text-secondary">
             {t("onboarding.permissions.description")}
           </p>
         </div>
 
         {/* Microphone Permission Card */}
-        <div className="w-full p-4 rounded-lg bg-white/5 border border-mid-gray/20">
+        <div className="w-full p-4 rounded-cf-md bg-cf-surface shadow-cf-card">
           <div className="flex items-center gap-4">
-            <div className="p-3 rounded-full bg-logo-primary/20 shrink-0">
-              <Mic className="w-6 h-6 text-logo-primary" />
-            </div>
+            <IconBadge color="var(--cf-accent)">
+              <Mic className="w-5 h-5" style={{ color: "var(--cf-accent)" }} />
+            </IconBadge>
             <div className="flex-1 min-w-0">
-              <h3 className="font-medium text-text">
+              <h3 className="font-semibold text-cf-text-primary">
                 {t("onboarding.permissions.microphone.title")}
               </h3>
-              <p className="text-sm text-text/60 mb-3">
+              <p className="text-sm text-cf-text-secondary mb-3">
                 {t("onboarding.permissions.microphone.description")}
               </p>
               {permissions.microphone === "granted" ? (
-                <div className="flex items-center gap-2 text-emerald-400 text-sm">
+                <div className="flex items-center gap-2 text-cf-mint text-sm font-medium">
                   <Check className="w-4 h-4" />
                   {t("onboarding.permissions.granted")}
                 </div>
               ) : permissions.microphone === "waiting" ? (
-                <div className="flex items-center gap-2 text-text/50 text-sm">
+                <div className="flex items-center gap-2 text-cf-text-tertiary text-sm">
                   <Loader2 className="w-4 h-4 animate-spin" />
                   {t("onboarding.permissions.waiting")}
                 </div>
               ) : (
                 <button
                   onClick={handleGrantMicrophone}
-                  className="px-4 py-2 rounded-lg bg-logo-primary hover:bg-logo-primary/90 text-white text-sm font-medium transition-colors"
+                  className="px-4 py-2 rounded-cf-lg text-sm font-semibold transition-all cf-interactive"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, var(--cf-cta-start), var(--cf-cta-end))",
+                    color: "var(--cf-cta-text)",
+                  }}
                 >
                   {t("onboarding.permissions.grant")}
                 </button>
@@ -280,32 +292,40 @@ const AccessibilityOnboarding: React.FC<AccessibilityOnboardingProps> = ({
         </div>
 
         {/* Accessibility Permission Card */}
-        <div className="w-full p-4 rounded-lg bg-white/5 border border-mid-gray/20">
+        <div className="w-full p-4 rounded-cf-md bg-cf-surface shadow-cf-card">
           <div className="flex items-center gap-4">
-            <div className="p-3 rounded-full bg-logo-primary/20 shrink-0">
-              <Keyboard className="w-6 h-6 text-logo-primary" />
-            </div>
+            <IconBadge color="var(--cf-section-advanced)">
+              <Keyboard
+                className="w-5 h-5"
+                style={{ color: "var(--cf-section-advanced)" }}
+              />
+            </IconBadge>
             <div className="flex-1 min-w-0">
-              <h3 className="font-medium text-text">
+              <h3 className="font-semibold text-cf-text-primary">
                 {t("onboarding.permissions.accessibility.title")}
               </h3>
-              <p className="text-sm text-text/60 mb-3">
+              <p className="text-sm text-cf-text-secondary mb-3">
                 {t("onboarding.permissions.accessibility.description")}
               </p>
               {permissions.accessibility === "granted" ? (
-                <div className="flex items-center gap-2 text-emerald-400 text-sm">
+                <div className="flex items-center gap-2 text-cf-mint text-sm font-medium">
                   <Check className="w-4 h-4" />
                   {t("onboarding.permissions.granted")}
                 </div>
               ) : permissions.accessibility === "waiting" ? (
-                <div className="flex items-center gap-2 text-text/50 text-sm">
+                <div className="flex items-center gap-2 text-cf-text-tertiary text-sm">
                   <Loader2 className="w-4 h-4 animate-spin" />
                   {t("onboarding.permissions.waiting")}
                 </div>
               ) : (
                 <button
                   onClick={handleGrantAccessibility}
-                  className="px-4 py-2 rounded-lg bg-logo-primary hover:bg-logo-primary/90 text-white text-sm font-medium transition-colors"
+                  className="px-4 py-2 rounded-cf-lg text-sm font-semibold transition-all cf-interactive"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, var(--cf-cta-start), var(--cf-cta-end))",
+                    color: "var(--cf-cta-text)",
+                  }}
                 >
                   {t("onboarding.permissions.grant")}
                 </button>

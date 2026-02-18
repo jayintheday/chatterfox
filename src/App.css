@@ -1,40 +1,251 @@
 @import "tailwindcss";
 
-@theme {
-  --color-text: #0f0f0f;
-  --color-background: #fbfbfb;
-  --color-background-ui: #da5893;
-  --color-logo-primary: #faa2ca;
-  --color-logo-stroke: #382731;
-  --color-text-stroke: #f6f6f6;
-  --color-mid-gray: #808080;
-}
+/* =========================================================
+   ChatterFox Design Token System
+   4-Layer Architecture: Primitives → Semantics → Section → Components
+   ========================================================= */
 
+/* ---------------------------------------------------------
+   Layer 2: Semantic Tokens (Light Mode - Default)
+   Defined as CSS custom properties so they respond to dark mode
+   --------------------------------------------------------- */
 :root {
-  /* Typography */
+  /* Canvas & surfaces */
+  --cf-canvas: #faf9f7;
+  --cf-surface: #ffffff;
+  --cf-surface-subtle: #f3f1ee;
+  --cf-surface-hover: #f3f1ee;
+
+  /* Hero gradient */
+  --cf-hero-start: #fff8ee;
+  --cf-hero-mid: #fff3e0;
+  --cf-hero-end: #ffefd4;
+
+  /* Text */
+  --cf-text-primary: #1e1d1b;
+  --cf-text-secondary: #5c5852;
+  --cf-text-tertiary: #9e9a92;
+
+  /* Accent */
+  --cf-accent: #e6960a;
+  --cf-accent-soft: #ffefd4;
+  --cf-accent-hover: #c47a08;
+
+  /* CTA gradient (dark in light mode) */
+  --cf-cta-start: #1e1d1b;
+  --cf-cta-end: #3d3a35;
+  --cf-cta-text: #ffffff;
+
+  /* Border tokens */
+  --cf-border-subtle: rgba(0, 0, 0, 0.06);
+  --cf-border-strong: rgba(0, 0, 0, 0.12);
+
+  /* Blob colors */
+  --cf-blob-1: #ffefd4;
+  --cf-blob-2: #ffdab9;
+  --cf-blob-3: #fff8ee;
+  --cf-blob-opacity: 0.5;
+
+  /* Toggle */
+  --cf-toggle-off: #d4d0c8;
+  --cf-toggle-on-start: #1e1d1b;
+  --cf-toggle-on-end: #3d3a35;
+
+  /* Section accents */
+  --cf-section-general: #e6960a;
+  --cf-section-models: #5cb870;
+  --cf-section-advanced: #38bdf8;
+  --cf-section-postprocessing: #facc15;
+  --cf-section-history: #c4724e;
+  --cf-section-debug: #fb7185;
+  --cf-section-about: #9e9a92;
+
+  /* Typography base */
   font-size: 15px;
   line-height: 24px;
   font-weight: 400;
-
-  /* Colors - Light Theme */
-  /* --color-text: #0f0f0f;
-  --color-background: #fbfbfb;
-  --color-logo-primary: #FAA2CA;
-  --color-logo-stroke: #382731;
-  --color-text-stroke: #f6f6f6; */
-
-  /* Typography settings */
+  font-family: "Nunito", "SF Pro Rounded", ui-rounded, system-ui, sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 
-  /* Apply colors */
-  color: var(--color-text);
-  background-color: var(--color-background);
+  color: var(--cf-text-primary);
+  background-color: var(--cf-canvas);
 }
 
+/* ---------------------------------------------------------
+   Layer 2: Semantic Tokens (Dark Mode)
+   --------------------------------------------------------- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cf-canvas: #1e1d1b;
+    --cf-surface: #2c2b29;
+    --cf-surface-subtle: #3d3a35;
+    --cf-surface-hover: #3d3a35;
+
+    --cf-hero-start: #2a2218;
+    --cf-hero-mid: #2c2519;
+    --cf-hero-end: #2e281c;
+
+    --cf-text-primary: #faf9f7;
+    --cf-text-secondary: #9e9a92;
+    --cf-text-tertiary: #5c5852;
+
+    --cf-accent: #f5b63c;
+    --cf-accent-soft: rgba(245, 182, 60, 0.2);
+    --cf-accent-hover: #ffd88a;
+
+    /* CTA gradient (light in dark mode) */
+    --cf-cta-start: #f3f1ee;
+    --cf-cta-end: #d4d0c8;
+    --cf-cta-text: #1e1d1b;
+
+    --cf-border-subtle: rgba(255, 255, 255, 0.06);
+    --cf-border-strong: rgba(255, 255, 255, 0.12);
+
+    --cf-blob-1: rgba(245, 182, 60, 0.15);
+    --cf-blob-2: rgba(196, 114, 78, 0.12);
+    --cf-blob-3: rgba(255, 216, 138, 0.08);
+    --cf-blob-opacity: 0.3;
+
+    --cf-toggle-off: #3d3a35;
+    --cf-toggle-on-start: #f3f1ee;
+    --cf-toggle-on-end: #d4d0c8;
+  }
+}
+
+/* ---------------------------------------------------------
+   Layer 1 (Primitives) + Semantic bridges in @theme
+   These become Tailwind utility classes
+   --------------------------------------------------------- */
+@theme {
+  /* Primitives: Fox amber ramp */
+  --color-cf-amber-100: #fff8ee;
+  --color-cf-amber-200: #ffefd4;
+  --color-cf-amber-300: #ffd88a;
+  --color-cf-amber-400: #f5b63c;
+  --color-cf-amber-500: #e6960a;
+  --color-cf-amber-600: #c47a08;
+  --color-cf-amber-700: #8b5600;
+
+  /* Primitives: Forest ramp */
+  --color-cf-forest-300: #a8e6b4;
+  --color-cf-forest-400: #5cb870;
+  --color-cf-forest-500: #3a8a4e;
+
+  /* Primitives: Status */
+  --color-cf-mint: #4ade80;
+  --color-cf-gold: #facc15;
+  --color-cf-rose: #fb7185;
+  --color-cf-sky: #38bdf8;
+
+  /* Semantic → Tailwind bridges (reference CSS vars for dark mode reactivity) */
+  --color-cf-canvas: var(--cf-canvas);
+  --color-cf-surface: var(--cf-surface);
+  --color-cf-surface-subtle: var(--cf-surface-subtle);
+  --color-cf-surface-hover: var(--cf-surface-hover);
+  --color-cf-text-primary: var(--cf-text-primary);
+  --color-cf-text-secondary: var(--cf-text-secondary);
+  --color-cf-text-tertiary: var(--cf-text-tertiary);
+  --color-cf-accent: var(--cf-accent);
+  --color-cf-accent-soft: var(--cf-accent-soft);
+  --color-cf-accent-hover: var(--cf-accent-hover);
+  --color-cf-cta-text: var(--cf-cta-text);
+  --color-cf-border-subtle: var(--cf-border-subtle);
+  --color-cf-border-strong: var(--cf-border-strong);
+  --color-cf-toggle-off: var(--cf-toggle-off);
+
+  /* Section accent bridges */
+  --color-cf-section-general: var(--cf-section-general);
+  --color-cf-section-models: var(--cf-section-models);
+  --color-cf-section-advanced: var(--cf-section-advanced);
+  --color-cf-section-history: var(--cf-section-history);
+  --color-cf-section-about: var(--cf-section-about);
+
+  /* Radii */
+  --radius-cf-sm: 12px;
+  --radius-cf-md: 16px;
+  --radius-cf-lg: 20px;
+  --radius-cf-xl: 28px;
+  --radius-cf-full: 9999px;
+
+  /* Shadows */
+  --shadow-cf-card:
+    0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-cf-elevated:
+    0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-cf-glow: 0 0 20px rgba(230, 150, 10, 0.15);
+
+  /* Font families */
+  --font-display: "Nunito", "SF Pro Rounded", ui-rounded, system-ui, sans-serif;
+  --font-mono: "SF Mono", "Fira Code", ui-monospace, monospace;
+}
+
+/* ---------------------------------------------------------
+   Layer 4: Component Utilities & Animations
+   --------------------------------------------------------- */
+
+/* Micro-interactions */
+.cf-interactive {
+  transition:
+    opacity 150ms ease,
+    transform 100ms ease;
+}
+.cf-interactive:hover {
+  opacity: 1 !important;
+}
+.cf-interactive:active {
+  transform: scale(0.98);
+}
+
+.cf-card-interactive {
+  transition:
+    box-shadow 200ms ease,
+    transform 200ms ease;
+}
+.cf-card-interactive:hover {
+  box-shadow: var(--shadow-cf-elevated);
+  transform: translateY(-1px);
+}
+
+/* Blob drift animation */
+@keyframes cf-blob-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(3px, -2px);
+  }
+  50% {
+    transform: translate(-2px, 3px);
+  }
+  75% {
+    transform: translate(2px, 1px);
+  }
+}
+.cf-blob-animate {
+  animation: cf-blob-drift 20s ease-in-out infinite;
+}
+
+/* Page enter animation */
+@keyframes cf-page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.cf-page-enter {
+  animation: cf-page-enter 300ms ease-out;
+}
+
+/* Container class (legacy) */
 .container {
   margin: 0;
   padding-top: 10vh;
@@ -44,28 +255,193 @@
   text-align: center;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    /* Colors - Dark Theme */
-    --color-text: #fbfbfb;
-    --color-background: #2c2b29;
-    --color-logo-primary: #f28cbb;
-    --color-logo-stroke: #fad1ed;
-  }
-}
-
-@layer utilities {
-  .text-stroke {
-    -webkit-text-stroke: 2px var(--color-text-stroke);
-  }
-}
-
+/* Legacy logo classes */
 .logo-primary {
-  fill: var(--color-logo-primary);
+  fill: var(--cf-accent);
+}
+.logo-stroke {
+  fill: var(--cf-text-primary);
+  stroke: var(--cf-text-primary);
+  stroke-width: 1;
 }
 
-.logo-stroke {
-  fill: var(--color-logo-stroke);
-  stroke: var(--color-logo-stroke);
-  stroke-width: 1;
+/* ---------------------------------------------------------
+   Themes: [data-theme] overrides
+   amber-den is the default — defining it mainly for dark mode completeness
+   --------------------------------------------------------- */
+
+/* ---- Amber Den (default) ---- */
+[data-theme="amber-den"] {
+  --cf-accent: #e6960a;
+  --cf-accent-soft: #ffefd4;
+  --cf-accent-hover: #c47a08;
+  --cf-hero-start: #fff8ee;
+  --cf-hero-mid: #fff3e0;
+  --cf-hero-end: #ffefd4;
+  --cf-blob-1: #ffefd4;
+  --cf-blob-2: #ffdab9;
+  --cf-blob-3: #fff8ee;
+  --cf-cta-start: #1e1d1b;
+  --cf-cta-end: #3d3a35;
+  --cf-cta-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="amber-den"] {
+    --cf-accent: #f5b63c;
+    --cf-accent-soft: rgba(245, 182, 60, 0.2);
+    --cf-accent-hover: #ffd88a;
+    --cf-hero-start: #2a2218;
+    --cf-hero-mid: #2c2519;
+    --cf-hero-end: #2e281c;
+    --cf-blob-1: rgba(245, 182, 60, 0.3);
+    --cf-blob-2: rgba(196, 114, 78, 0.25);
+    --cf-blob-3: rgba(255, 216, 138, 0.18);
+    --cf-blob-opacity: 0.55;
+    --cf-cta-start: #f3f1ee;
+    --cf-cta-end: #d4d0c8;
+    --cf-cta-text: #1e1d1b;
+    --cf-section-general: #f5b63c;
+    --cf-section-models: #6fcf81;
+    --cf-section-advanced: #56d0f8;
+    --cf-section-postprocessing: #fde047;
+    --cf-section-history: #e08b6a;
+    --cf-section-debug: #fc8496;
+    --cf-section-about: #b0ada6;
+  }
+}
+
+/* ---- Twilight Forest ---- */
+[data-theme="twilight-forest"] {
+  --cf-accent: #5cb870;
+  --cf-accent-soft: #e8f7ec;
+  --cf-accent-hover: #3a8a4e;
+  --cf-hero-start: #f0f9f2;
+  --cf-hero-mid: #e8f7ec;
+  --cf-hero-end: #dcf2e2;
+  --cf-blob-1: #dcf2e2;
+  --cf-blob-2: #b3e6c0;
+  --cf-blob-3: #f0f9f2;
+  --cf-cta-start: #1a2e1d;
+  --cf-cta-end: #2d4a32;
+  --cf-cta-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="twilight-forest"] {
+    --cf-canvas: #151c17;
+    --cf-surface: #1e2a21;
+    --cf-surface-subtle: #2a3a2d;
+    --cf-surface-hover: #2a3a2d;
+    --cf-accent: #6fcf81;
+    --cf-accent-soft: rgba(111, 207, 129, 0.2);
+    --cf-accent-hover: #a8e6b4;
+    --cf-hero-start: #182a1d;
+    --cf-hero-mid: #1a2e20;
+    --cf-hero-end: #1d3224;
+    --cf-blob-1: rgba(111, 207, 129, 0.3);
+    --cf-blob-2: rgba(56, 189, 248, 0.22);
+    --cf-blob-3: rgba(168, 230, 180, 0.18);
+    --cf-blob-opacity: 0.55;
+    --cf-cta-start: #eef9f1;
+    --cf-cta-end: #c8e8d0;
+    --cf-cta-text: #1a2e1d;
+    --cf-section-general: #6fcf81;
+    --cf-section-models: #56d0f8;
+    --cf-section-advanced: #a78bfa;
+    --cf-section-postprocessing: #fde047;
+    --cf-section-history: #fb923c;
+    --cf-section-debug: #fc8496;
+    --cf-section-about: #b0ada6;
+  }
+}
+
+/* ---- Lavender Haze ---- */
+[data-theme="lavender-haze"] {
+  --cf-accent: #9b72d4;
+  --cf-accent-soft: #f3eeff;
+  --cf-accent-hover: #7a52b8;
+  --cf-hero-start: #fff8ee;
+  --cf-hero-mid: #f8f0ff;
+  --cf-hero-end: #f0e8ff;
+  --cf-blob-1: #f8e8d0;
+  --cf-blob-2: #f5c8d8;
+  --cf-blob-3: #e8d8ff;
+  --cf-cta-start: #2a1a4a;
+  --cf-cta-end: #3d2a6b;
+  --cf-cta-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="lavender-haze"] {
+    --cf-canvas: #16131e;
+    --cf-surface: #221a2e;
+    --cf-surface-subtle: #302540;
+    --cf-surface-hover: #302540;
+    --cf-accent: #b48ee0;
+    --cf-accent-soft: rgba(180, 142, 224, 0.2);
+    --cf-accent-hover: #cbb0ed;
+    --cf-hero-start: #221530;
+    --cf-hero-mid: #251838;
+    --cf-hero-end: #281c40;
+    --cf-blob-1: rgba(248, 200, 140, 0.3);
+    --cf-blob-2: rgba(245, 140, 160, 0.25);
+    --cf-blob-3: rgba(180, 142, 224, 0.3);
+    --cf-blob-opacity: 0.55;
+    --cf-cta-start: #f0e8ff;
+    --cf-cta-end: #d8c4f0;
+    --cf-cta-text: #2a1a4a;
+    --cf-section-general: #f5b63c;
+    --cf-section-models: #6fcf81;
+    --cf-section-advanced: #b48ee0;
+    --cf-section-postprocessing: #fde047;
+    --cf-section-history: #e08b6a;
+    --cf-section-debug: #fc8496;
+    --cf-section-about: #b0ada6;
+  }
+}
+
+/* ---- Sunset Dreams ---- */
+[data-theme="sunset-dreams"] {
+  --cf-accent: #e05a87;
+  --cf-accent-soft: #ffeef4;
+  --cf-accent-hover: #c0386b;
+  --cf-hero-start: #fff6ee;
+  --cf-hero-mid: #fff0f5;
+  --cf-hero-end: #ffe8f0;
+  --cf-blob-1: #ffd0be;
+  --cf-blob-2: #ffb8cc;
+  --cf-blob-3: #ffd8e4;
+  --cf-cta-start: #2a1018;
+  --cf-cta-end: #451a2a;
+  --cf-cta-text: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="sunset-dreams"] {
+    --cf-canvas: #1e1318;
+    --cf-surface: #2c1a22;
+    --cf-surface-subtle: #3d2530;
+    --cf-surface-hover: #3d2530;
+    --cf-accent: #f07ba0;
+    --cf-accent-soft: rgba(240, 123, 160, 0.2);
+    --cf-accent-hover: #f5a0bc;
+    --cf-hero-start: #2a1420;
+    --cf-hero-mid: #2e1828;
+    --cf-hero-end: #321c2e;
+    --cf-blob-1: rgba(255, 140, 100, 0.3);
+    --cf-blob-2: rgba(240, 123, 160, 0.3);
+    --cf-blob-3: rgba(255, 160, 190, 0.2);
+    --cf-blob-opacity: 0.55;
+    --cf-cta-start: #ffe8f0;
+    --cf-cta-end: #f5c0d4;
+    --cf-cta-text: #2a1018;
+    --cf-section-general: #f5b63c;
+    --cf-section-models: #6fcf81;
+    --cf-section-advanced: #56d0f8;
+    --cf-section-postprocessing: #fde047;
+    --cf-section-history: #fb923c;
+    --cf-section-debug: #f07ba0;
+    --cf-section-about: #b0ada6;
+  }
 }

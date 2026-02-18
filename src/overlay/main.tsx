@@ -1,10 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import RecordingOverlay from "./RecordingOverlay";
+import SuccessOverlay from "./SuccessOverlay";
 import "@/i18n";
+
+const OverlayApp: React.FC = () => (
+  <>
+    <RecordingOverlay />
+    <SuccessOverlay />
+  </>
+);
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <RecordingOverlay />
+    <OverlayApp />
   </React.StrictMode>,
 );

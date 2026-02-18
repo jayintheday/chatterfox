@@ -1,5 +1,4 @@
 use crate::managers::history::{HistoryEntry, HistoryManager};
-use crate::managers::transcription::TranscriptionManager;
 use crate::settings;
 use crate::tray_i18n::get_tray_translations;
 use log::{error, info, warn};
@@ -94,9 +93,9 @@ pub fn update_tray_menu(app: &AppHandle, state: &TrayIconState, locale: Option<&
 
     // Create common menu items
     let version_label = if cfg!(debug_assertions) {
-        format!("Handy v{} (Dev)", env!("CARGO_PKG_VERSION"))
+        format!("ChatterFox v{} (Dev)", env!("CARGO_PKG_VERSION"))
     } else {
-        format!("Handy v{}", env!("CARGO_PKG_VERSION"))
+        format!("ChatterFox v{}", env!("CARGO_PKG_VERSION"))
     };
     let version_i = MenuItem::with_id(app, "version", &version_label, false, None::<&str>)
         .expect("failed to create version item");
@@ -124,15 +123,6 @@ pub fn update_tray_menu(app: &AppHandle, state: &TrayIconState, locale: Option<&
         None::<&str>,
     )
     .expect("failed to create copy last transcript item");
-    let model_loaded = app.state::<Arc<TranscriptionManager>>().is_model_loaded();
-    let unload_model_i = MenuItem::with_id(
-        app,
-        "unload_model",
-        &strings.unload_model,
-        model_loaded,
-        None::<&str>,
-    )
-    .expect("failed to create unload model item");
     let quit_i = MenuItem::with_id(app, "quit", &strings.quit, true, quit_accelerator)
         .expect("failed to create quit item");
     let separator = || PredefinedMenuItem::separator(app).expect("failed to create separator");
@@ -164,7 +154,6 @@ pub fn update_tray_menu(app: &AppHandle, state: &TrayIconState, locale: Option<&
                 &version_i,
                 &separator(),
                 &copy_last_transcript_i,
-                &unload_model_i,
                 &separator(),
                 &settings_i,
                 &check_updates_i,
@@ -181,10 +170,7 @@ pub fn update_tray_menu(app: &AppHandle, state: &TrayIconState, locale: Option<&
 }
 
 fn last_transcript_text(entry: &HistoryEntry) -> &str {
-    entry
-        .post_processed_text
-        .as_deref()
-        .unwrap_or(&entry.transcription_text)
+    &entry.transcription_text
 }
 
 pub fn set_tray_visibility(app: &AppHandle, visible: bool) {
@@ -223,7 +209,7 @@ mod tests {
     use super::last_transcript_text;
     use crate::managers::history::HistoryEntry;
 
-    fn build_entry(transcription: &str, post_processed: Option<&str>) -> HistoryEntry {
+    fn build_entry(transcription: &str) -> HistoryEntry {
         HistoryEntry {
             id: 1,
             file_name: "handy-1.wav".to_string(),
@@ -231,20 +217,12 @@ mod tests {
             saved: false,
             title: "Recording".to_string(),
             transcription_text: transcription.to_string(),
-            post_processed_text: post_processed.map(|text| text.to_string()),
-            post_process_prompt: None,
         }
     }
 
     #[test]
-    fn uses_post_processed_text_when_available() {
-        let entry = build_entry("raw", Some("processed"));
-        assert_eq!(last_transcript_text(&entry), "processed");
-    }
-
-    #[test]
-    fn falls_back_to_raw_transcription() {
-        let entry = build_entry("raw", None);
+    fn returns_transcription_text() {
+        let entry = build_entry("raw");
         assert_eq!(last_transcript_text(&entry), "raw");
     }
 }

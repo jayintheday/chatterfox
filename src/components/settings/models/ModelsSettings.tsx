@@ -159,43 +159,38 @@ export const ModelsSettings: React.FC = () => {
     });
   }, [models, languageFilter]);
 
-  // Split filtered models into downloaded (including custom) and available sections
+  // Split filtered models into downloaded and available sections
   const { downloadedModels, availableModels } = useMemo(() => {
     const downloaded: ModelInfo[] = [];
     const available: ModelInfo[] = [];
 
     for (const model of filteredModels) {
-      if (
-        model.is_custom ||
+      const isDownloaded =
         model.is_downloaded ||
         model.id in downloadingModels ||
-        model.id in extractingModels
-      ) {
+        model.id in extractingModels;
+      if (isDownloaded) {
         downloaded.push(model);
       } else {
         available.push(model);
       }
     }
 
-    // Sort: active model first, then non-custom, then custom at the bottom
+    // Sort downloaded models so the active model is always first
     downloaded.sort((a, b) => {
       if (a.id === currentModel) return -1;
       if (b.id === currentModel) return 1;
-      if (a.is_custom !== b.is_custom) return a.is_custom ? 1 : -1;
       return 0;
     });
 
-    return {
-      downloadedModels: downloaded,
-      availableModels: available,
-    };
+    return { downloadedModels: downloaded, availableModels: available };
   }, [filteredModels, downloadingModels, extractingModels, currentModel]);
 
   if (loading) {
     return (
       <div className="max-w-3xl w-full mx-auto">
         <div className="flex items-center justify-center py-16">
-          <div className="w-8 h-8 border-2 border-logo-primary border-t-transparent rounded-full animate-spin" />
+          <div className="w-8 h-8 border-2 border-cf-accent border-t-transparent rounded-full animate-spin" />
         </div>
       </div>
     );
@@ -207,131 +202,135 @@ export const ModelsSettings: React.FC = () => {
         <h1 className="text-xl font-semibold mb-2">
           {t("settings.models.title")}
         </h1>
-        <p className="text-sm text-text/60">
+        <p className="text-sm text-cf-text-secondary">
           {t("settings.models.description")}
         </p>
       </div>
       {filteredModels.length > 0 ? (
         <div className="space-y-6">
-          {/* Downloaded Models Section — header always visible so filter stays accessible */}
-          <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <h2 className="text-sm font-medium text-text/60">
-                {t("settings.models.yourModels")}
-              </h2>
-              {/* Language filter dropdown */}
-              <div className="relative" ref={languageDropdownRef}>
-                <button
-                  type="button"
-                  onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
-                    languageFilter !== "all"
-                      ? "bg-logo-primary/20 text-logo-primary"
-                      : "bg-mid-gray/10 text-text/60 hover:bg-mid-gray/20"
-                  }`}
-                >
-                  <Globe className="w-3.5 h-3.5" />
-                  <span className="max-w-[120px] truncate">
-                    {selectedLanguageLabel}
-                  </span>
-                  <ChevronDown
-                    className={`w-3.5 h-3.5 transition-transform ${
-                      languageDropdownOpen ? "rotate-180" : ""
+          {/* Downloaded Models Section */}
+          {downloadedModels.length > 0 && (
+            <div className="space-y-3">
+              <div className="flex items-center justify-between">
+                <h2 className="text-sm font-medium text-cf-text-secondary">
+                  {t("settings.models.yourModels")}
+                </h2>
+                {/* Language filter dropdown */}
+                <div className="relative" ref={languageDropdownRef}>
+                  <button
+                    type="button"
+                    onClick={() =>
+                      setLanguageDropdownOpen(!languageDropdownOpen)
+                    }
+                    className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium rounded-cf-sm transition-colors ${
+                      languageFilter !== "all"
+                        ? "bg-cf-accent-soft text-cf-accent"
+                        : "bg-cf-surface-subtle text-cf-text-secondary hover:bg-cf-surface-subtle"
                     }`}
-                  />
-                </button>
+                  >
+                    <Globe className="w-3.5 h-3.5" />
+                    <span className="max-w-[120px] truncate">
+                      {selectedLanguageLabel}
+                    </span>
+                    <ChevronDown
+                      className={`w-3.5 h-3.5 transition-transform ${
+                        languageDropdownOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
 
-                {languageDropdownOpen && (
-                  <div className="absolute top-full right-0 mt-1 w-56 bg-background border border-mid-gray/80 rounded-lg shadow-lg z-50 overflow-hidden">
-                    <div className="p-2 border-b border-mid-gray/40">
-                      <input
-                        ref={languageSearchInputRef}
-                        type="text"
-                        value={languageSearch}
-                        onChange={(e) => setLanguageSearch(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (
-                            e.key === "Enter" &&
-                            filteredLanguages.length > 0
-                          ) {
-                            setLanguageFilter(filteredLanguages[0].value);
-                            setLanguageDropdownOpen(false);
-                            setLanguageSearch("");
-                          } else if (e.key === "Escape") {
-                            setLanguageDropdownOpen(false);
-                            setLanguageSearch("");
-                          }
-                        }}
-                        placeholder={t(
-                          "settings.general.language.searchPlaceholder",
-                        )}
-                        className="w-full px-2 py-1 text-sm bg-mid-gray/10 border border-mid-gray/40 rounded-md focus:outline-none focus:ring-1 focus:ring-logo-primary"
-                      />
-                    </div>
-                    <div className="max-h-48 overflow-y-auto">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setLanguageFilter("all");
-                          setLanguageDropdownOpen(false);
-                          setLanguageSearch("");
-                        }}
-                        className={`w-full px-3 py-1.5 text-sm text-left transition-colors ${
-                          languageFilter === "all"
-                            ? "bg-logo-primary/20 text-logo-primary font-semibold"
-                            : "hover:bg-mid-gray/10"
-                        }`}
-                      >
-                        {t("settings.models.filters.allLanguages")}
-                      </button>
-                      {filteredLanguages.map((lang) => (
+                  {languageDropdownOpen && (
+                    <div className="absolute top-full right-0 mt-1 w-56 bg-cf-canvas border border-cf-border-strong rounded-cf-sm shadow-lg z-50 overflow-hidden">
+                      <div className="p-2 border-b border-cf-border-subtle">
+                        <input
+                          ref={languageSearchInputRef}
+                          type="text"
+                          value={languageSearch}
+                          onChange={(e) => setLanguageSearch(e.target.value)}
+                          onKeyDown={(e) => {
+                            if (
+                              e.key === "Enter" &&
+                              filteredLanguages.length > 0
+                            ) {
+                              setLanguageFilter(filteredLanguages[0].value);
+                              setLanguageDropdownOpen(false);
+                              setLanguageSearch("");
+                            } else if (e.key === "Escape") {
+                              setLanguageDropdownOpen(false);
+                              setLanguageSearch("");
+                            }
+                          }}
+                          placeholder={t(
+                            "settings.general.language.searchPlaceholder",
+                          )}
+                          className="w-full px-2 py-1 text-sm bg-cf-surface-subtle border border-cf-border-subtle rounded-cf-sm focus:outline-none focus:ring-1 focus:ring-cf-accent"
+                        />
+                      </div>
+                      <div className="max-h-48 overflow-y-auto">
                         <button
-                          key={lang.value}
                           type="button"
                           onClick={() => {
-                            setLanguageFilter(lang.value);
+                            setLanguageFilter("all");
                             setLanguageDropdownOpen(false);
                             setLanguageSearch("");
                           }}
                           className={`w-full px-3 py-1.5 text-sm text-left transition-colors ${
-                            languageFilter === lang.value
-                              ? "bg-logo-primary/20 text-logo-primary font-semibold"
-                              : "hover:bg-mid-gray/10"
+                            languageFilter === "all"
+                              ? "bg-cf-accent-soft text-cf-accent font-semibold"
+                              : "hover:bg-cf-surface-subtle"
                           }`}
                         >
-                          {lang.label}
+                          {t("settings.models.filters.allLanguages")}
                         </button>
-                      ))}
-                      {filteredLanguages.length === 0 && (
-                        <div className="px-3 py-2 text-sm text-text/50 text-center">
-                          {t("settings.general.language.noResults")}
-                        </div>
-                      )}
+                        {filteredLanguages.map((lang) => (
+                          <button
+                            key={lang.value}
+                            type="button"
+                            onClick={() => {
+                              setLanguageFilter(lang.value);
+                              setLanguageDropdownOpen(false);
+                              setLanguageSearch("");
+                            }}
+                            className={`w-full px-3 py-1.5 text-sm text-left transition-colors ${
+                              languageFilter === lang.value
+                                ? "bg-cf-accent-soft text-cf-accent font-semibold"
+                                : "hover:bg-cf-surface-subtle"
+                            }`}
+                          >
+                            {lang.label}
+                          </button>
+                        ))}
+                        {filteredLanguages.length === 0 && (
+                          <div className="px-3 py-2 text-sm text-cf-text-tertiary text-center">
+                            {t("settings.general.language.noResults")}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
+              {downloadedModels.map((model: ModelInfo) => (
+                <ModelCard
+                  key={model.id}
+                  model={model}
+                  status={getModelStatus(model.id)}
+                  onSelect={handleModelSelect}
+                  onDownload={handleModelDownload}
+                  onDelete={handleModelDelete}
+                  onCancel={handleModelCancel}
+                  downloadProgress={getDownloadProgress(model.id)}
+                  downloadSpeed={getDownloadSpeed(model.id)}
+                  showRecommended={false}
+                />
+              ))}
             </div>
-            {downloadedModels.map((model: ModelInfo) => (
-              <ModelCard
-                key={model.id}
-                model={model}
-                status={getModelStatus(model.id)}
-                onSelect={handleModelSelect}
-                onDownload={handleModelDownload}
-                onDelete={handleModelDelete}
-                onCancel={handleModelCancel}
-                downloadProgress={getDownloadProgress(model.id)}
-                downloadSpeed={getDownloadSpeed(model.id)}
-                showRecommended={false}
-              />
-            ))}
-          </div>
+          )}
 
           {/* Available Models Section */}
           {availableModels.length > 0 && (
             <div className="space-y-3">
-              <h2 className="text-sm font-medium text-text/60">
+              <h2 className="text-sm font-medium text-cf-text-secondary">
                 {t("settings.models.availableModels")}
               </h2>
               {availableModels.map((model: ModelInfo) => (
@@ -352,7 +351,7 @@ export const ModelsSettings: React.FC = () => {
           )}
         </div>
       ) : (
-        <div className="text-center py-8 text-text/50">
+        <div className="text-center py-8 text-cf-text-tertiary">
           {t("settings.models.noModelsMatch")}
         </div>
       )}

@@ -1,8 +1,9 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { Cog, FlaskConical, History, Info, Sparkles, Cpu } from "lucide-react";
-import HandyTextLogo from "./icons/HandyTextLogo";
-import HandyHand from "./icons/HandyHand";
+import { Cog, FlaskConical, History, Info } from "lucide-react";
+import ChatterFoxLogo from "./icons/ChatterFoxLogo";
+import FoxIcon from "./icons/FoxIcon";
+import { IconBadge } from "./ui/IconBadge";
 import { useSettings } from "../hooks/useSettings";
 import {
   GeneralSettings,
@@ -10,8 +11,6 @@ import {
   HistorySettings,
   DebugSettings,
   AboutSettings,
-  PostProcessingSettings,
-  ModelsSettings,
 } from "./settings";
 
 export type SidebarSection = keyof typeof SECTIONS_CONFIG;
@@ -29,50 +28,44 @@ interface SectionConfig {
   icon: React.ComponentType<IconProps>;
   component: React.ComponentType;
   enabled: (settings: any) => boolean;
+  accentVar: string;
 }
 
 export const SECTIONS_CONFIG = {
   general: {
     labelKey: "sidebar.general",
-    icon: HandyHand,
+    icon: FoxIcon,
     component: GeneralSettings,
     enabled: () => true,
-  },
-  models: {
-    labelKey: "sidebar.models",
-    icon: Cpu,
-    component: ModelsSettings,
-    enabled: () => true,
+    accentVar: "var(--cf-section-general)",
   },
   advanced: {
     labelKey: "sidebar.advanced",
     icon: Cog,
     component: AdvancedSettings,
     enabled: () => true,
-  },
-  postprocessing: {
-    labelKey: "sidebar.postProcessing",
-    icon: Sparkles,
-    component: PostProcessingSettings,
-    enabled: (settings) => settings?.post_process_enabled ?? false,
+    accentVar: "var(--cf-section-advanced)",
   },
   history: {
     labelKey: "sidebar.history",
     icon: History,
     component: HistorySettings,
     enabled: () => true,
+    accentVar: "var(--cf-section-history)",
   },
   debug: {
     labelKey: "sidebar.debug",
     icon: FlaskConical,
     component: DebugSettings,
     enabled: (settings) => settings?.debug_mode ?? false,
+    accentVar: "var(--cf-section-debug)",
   },
   about: {
     labelKey: "sidebar.about",
     icon: Info,
     component: AboutSettings,
     enabled: () => true,
+    accentVar: "var(--cf-section-about)",
   },
 } as const satisfies Record<string, SectionConfig>;
 
@@ -93,9 +86,9 @@ export const Sidebar: React.FC<SidebarProps> = ({
     .map(([id, config]) => ({ id: id as SidebarSection, ...config }));
 
   return (
-    <div className="flex flex-col w-40 h-full border-e border-mid-gray/20 items-center px-2">
-      <HandyTextLogo width={120} className="m-4" />
-      <div className="flex flex-col w-full items-center gap-1 pt-2 border-t border-mid-gray/20">
+    <div className="flex flex-col w-44 h-full bg-cf-surface/80 backdrop-blur-xl items-center px-2">
+      <ChatterFoxLogo width={140} className="m-4" />
+      <div className="flex flex-col w-full items-center gap-1 pt-2">
         {availableSections.map((section) => {
           const Icon = section.icon;
           const isActive = activeSection === section.id;
@@ -103,16 +96,35 @@ export const Sidebar: React.FC<SidebarProps> = ({
           return (
             <div
               key={section.id}
-              className={`flex gap-2 items-center p-2 w-full rounded-lg cursor-pointer transition-colors ${
-                isActive
-                  ? "bg-logo-primary/80"
-                  : "hover:bg-mid-gray/20 hover:opacity-100 opacity-85"
+              className={`cf-interactive flex gap-2 items-center p-2 w-full rounded-cf-sm cursor-pointer transition-all duration-150 ${
+                isActive ? "" : "opacity-70 hover:opacity-90"
               }`}
+              style={
+                isActive
+                  ? {
+                      backgroundColor: `color-mix(in srgb, ${section.accentVar} 10%, transparent)`,
+                    }
+                  : undefined
+              }
               onClick={() => onSectionChange(section.id)}
             >
-              <Icon width={24} height={24} className="shrink-0" />
+              <IconBadge
+                size="sm"
+                color={isActive ? section.accentVar : "var(--cf-text-tertiary)"}
+              >
+                <Icon
+                  width={16}
+                  height={16}
+                  style={{
+                    color: isActive
+                      ? section.accentVar
+                      : "var(--cf-text-tertiary)",
+                  }}
+                />
+              </IconBadge>
               <p
-                className="text-sm font-medium truncate"
+                className="text-[13px] font-semibold truncate"
+                style={isActive ? { color: section.accentVar } : undefined}
                 title={t(section.labelKey)}
               >
                 {t(section.labelKey)}

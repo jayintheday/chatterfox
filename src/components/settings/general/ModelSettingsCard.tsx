@@ -12,9 +12,8 @@ export const ModelSettingsCard: React.FC = () => {
 
   const currentModelInfo = models.find((m: ModelInfo) => m.id === currentModel);
 
-  const supportsLanguageSelection =
-    currentModelInfo?.engine_type === "Whisper" ||
-    currentModelInfo?.engine_type === "SenseVoice";
+  // Only Whisper models support manual language selection
+  const supportsLanguageSelection = currentModelInfo?.engine_type === "Whisper";
   const supportsTranslation = currentModelInfo?.supports_translation ?? false;
   const hasAnySettings = supportsLanguageSelection || supportsTranslation;
 
@@ -30,11 +29,7 @@ export const ModelSettingsCard: React.FC = () => {
       })}
     >
       {supportsLanguageSelection && (
-        <LanguageSelector
-          descriptionMode="tooltip"
-          grouped={true}
-          supportedLanguages={currentModelInfo.supported_languages}
-        />
+        <LanguageSelector descriptionMode="tooltip" grouped={true} />
       )}
       {supportsTranslation && (
         <TranslateToEnglish descriptionMode="tooltip" grouped={true} />

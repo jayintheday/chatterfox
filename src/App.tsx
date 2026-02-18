@@ -7,6 +7,7 @@ import {
   checkMicrophonePermission,
 } from "tauri-plugin-macos-permissions-api";
 import "./App.css";
+import { AtmosphericBackground } from "./components/ui/AtmosphericBackground";
 import AccessibilityPermissions from "./components/AccessibilityPermissions";
 import Footer from "./components/footer";
 import Onboarding, { AccessibilityOnboarding } from "./components/onboarding";
@@ -43,6 +44,18 @@ function App() {
     (state) => state.refreshOutputDevices,
   );
   const hasCompletedPostOnboardingInit = useRef(false);
+
+  // Apply persisted theme immediately on mount
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem("cf-theme");
+      if (saved) {
+        document.documentElement.setAttribute("data-theme", saved);
+      }
+    } catch {
+      // ignore
+    }
+  }, []);
 
   useEffect(() => {
     checkOnboardingStatus();
@@ -159,20 +172,21 @@ function App() {
       dir={direction}
       className="h-screen flex flex-col select-none cursor-default"
     >
+      <AtmosphericBackground />
       <Toaster
         theme="system"
         toastOptions={{
           unstyled: true,
           classNames: {
             toast:
-              "bg-background border border-mid-gray/20 rounded-lg shadow-lg px-4 py-3 flex items-center gap-3 text-sm",
-            title: "font-medium",
-            description: "text-mid-gray",
+              "bg-cf-surface/95 backdrop-blur-lg rounded-cf-md shadow-cf-elevated px-4 py-3 flex items-center gap-3 text-sm",
+            title: "font-medium text-cf-text-primary",
+            description: "text-cf-text-secondary",
           },
         }}
       />
       {/* Main content area that takes remaining space */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex overflow-hidden relative z-10">
         <Sidebar
           activeSection={currentSection}
           onSectionChange={setCurrentSection}
@@ -180,7 +194,7 @@ function App() {
         {/* Scrollable content area */}
         <div className="flex-1 flex flex-col overflow-hidden">
           <div className="flex-1 overflow-y-auto">
-            <div className="flex flex-col items-center p-4 gap-4">
+            <div className="flex flex-col items-center p-4 gap-4 cf-page-enter">
               <AccessibilityPermissions />
               {renderSettingsContent(currentSection)}
             </div>

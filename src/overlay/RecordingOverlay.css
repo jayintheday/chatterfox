@@ -1,15 +1,18 @@
 .recording-overlay {
-  height: 36px;
-  width: 172px;
+  height: 44px;
+  width: 200px;
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  padding: 6px;
-  background: #000000cc;
-  border-radius: 18px;
+  padding: 8px;
+  background: rgba(44, 38, 32, 0.3);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 22px;
   opacity: 0;
   transition: opacity 300ms ease-out;
   box-sizing: border-box;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
 }
 
 .overlay-left {
@@ -35,17 +38,17 @@
   justify-content: center;
   gap: 3px;
   padding-bottom: 0px;
-  height: 24px;
+  height: 28px;
   overflow: hidden;
 }
 
 .bar {
-  width: 6px;
-  background: #ffe5ee;
-  max-height: 20px;
-  border-radius: 2px;
+  width: 8px;
+  background: linear-gradient(to top, #e6960a, #ffd88a);
+  max-height: 24px;
+  border-radius: 3px;
   transition: height 80ms linear;
-  min-height: 4px;
+  min-height: 6px;
 }
 
 .recording-overlay.fade-in {
@@ -56,7 +59,13 @@
   color: white;
   font-size: 12px;
   font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    "Nunito",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-weight: 600;
   animation: transcribing-pulse 1.5s infinite ease-in-out;
 }
 
@@ -71,8 +80,8 @@
 }
 
 .cancel-button {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   background: transparent;
   display: flex;
@@ -86,7 +95,7 @@
 }
 
 .cancel-button:hover {
-  background: #faa2ca33;
+  background: rgba(230, 150, 10, 0.2);
   transform: scale(1.05);
 }
 
