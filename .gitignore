@@ -43,6 +43,9 @@ blob-report/
 .env.*
 !.env.example
 
+# Agent instruction files (local only)
+RELEASE_AGENT.md
+
 # Private keys and certificates
 *.key
 *.pem
