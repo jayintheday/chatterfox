@@ -2,6 +2,7 @@ import { listen } from "@tauri-apps/api/event";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { syncLanguageFromSettings } from "@/i18n";
+import { syncThemeFromSettings } from "@/lib/utils/theme";
 
 const SuccessOverlay: React.FC = () => {
   const { t } = useTranslation();
@@ -11,6 +12,7 @@ const SuccessOverlay: React.FC = () => {
     const setup = async () => {
       const unlisten = await listen("transcription-complete", async () => {
         await syncLanguageFromSettings();
+        syncThemeFromSettings();
         setIsVisible(true);
         setTimeout(() => setIsVisible(false), 1500);
       });
@@ -28,7 +30,7 @@ const SuccessOverlay: React.FC = () => {
         alignItems: "center",
         gap: 8,
         padding: "8px 16px",
-        background: "rgba(44, 38, 32, 0.3)",
+        background: "color-mix(in srgb, var(--cf-surface) 40%, transparent)",
         backdropFilter: "blur(20px)",
         WebkitBackdropFilter: "blur(20px)",
         borderRadius: 22,
@@ -62,7 +64,7 @@ const SuccessOverlay: React.FC = () => {
       </div>
       <span
         style={{
-          color: "white",
+          color: "var(--cf-text-primary)",
           fontSize: 12,
           fontFamily:
             'Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',

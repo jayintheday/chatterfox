@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import RecordingOverlay from "./RecordingOverlay";
 import SuccessOverlay from "./SuccessOverlay";
 import "@/i18n";
+import "./overlay-theme.css";
 
 const OverlayApp: React.FC = () => (
   <>

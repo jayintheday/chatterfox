@@ -1,0 +1,89 @@
+/* Overlay theme variables — subset of the main App.css token system.
+   Only the variables referenced by overlay components are defined here. */
+
+/* ---- Defaults (amber warm, light mode) ---- */
+:root {
+  --cf-surface: #ffffff;
+  --cf-accent: #e6960a;
+  --cf-accent-hover: #ffd88a;
+  --cf-accent-soft: #ffefd4;
+  --cf-text-primary: #1e1d1b;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --cf-surface: #2c2b29;
+    --cf-accent: #f5b63c;
+    --cf-accent-hover: #ffd88a;
+    --cf-accent-soft: rgba(245, 182, 60, 0.2);
+    --cf-text-primary: #faf9f7;
+  }
+}
+
+/* ---- Midnight ---- */
+[data-theme="midnight"] {
+  --cf-accent: #64748b;
+  --cf-accent-hover: #94a3b8;
+  --cf-accent-soft: #f1f5f9;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="midnight"] {
+    --cf-surface: #161b22;
+    --cf-accent: #94a3b8;
+    --cf-accent-hover: #cbd5e1;
+    --cf-accent-soft: rgba(148, 163, 184, 0.2);
+    --cf-text-primary: #faf9f7;
+  }
+}
+
+/* ---- Deep Ocean ---- */
+[data-theme="deep-ocean"] {
+  --cf-accent: #0284c7;
+  --cf-accent-hover: #38bdf8;
+  --cf-accent-soft: #e0f2fe;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="deep-ocean"] {
+    --cf-surface: #0a1628;
+    --cf-accent: #38bdf8;
+    --cf-accent-hover: #7dd3fc;
+    --cf-accent-soft: rgba(56, 189, 248, 0.2);
+    --cf-text-primary: #faf9f7;
+  }
+}
+
+/* ---- Lavender Haze ---- */
+[data-theme="lavender-haze"] {
+  --cf-accent: #9b72d4;
+  --cf-accent-hover: #b48ee0;
+  --cf-accent-soft: #f3eeff;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="lavender-haze"] {
+    --cf-surface: #221a2e;
+    --cf-accent: #b48ee0;
+    --cf-accent-hover: #cbb0ed;
+    --cf-accent-soft: rgba(180, 142, 224, 0.2);
+    --cf-text-primary: #faf9f7;
+  }
+}
+
+/* ---- Sunset Dreams ---- */
+[data-theme="sunset-dreams"] {
+  --cf-accent: #e05a87;
+  --cf-accent-hover: #f07ba0;
+  --cf-accent-soft: #ffeef4;
+}
+
+@media (prefers-color-scheme: dark) {
+  [data-theme="sunset-dreams"] {
+    --cf-surface: #2c1a22;
+    --cf-accent: #f07ba0;
+    --cf-accent-hover: #f5a0bc;
+    --cf-accent-soft: rgba(240, 123, 160, 0.2);
+    --cf-text-primary: #faf9f7;
+  }
+}

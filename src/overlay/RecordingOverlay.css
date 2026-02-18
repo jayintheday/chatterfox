@@ -5,7 +5,8 @@
   grid-template-columns: auto 1fr auto;
   align-items: center;
   padding: 8px;
-  background: rgba(44, 38, 32, 0.3);
+  background: rgba(44, 38, 32, 0.3); /* fallback for older WebKit */
+  background: color-mix(in srgb, var(--cf-surface) 40%, transparent);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-radius: 22px;
@@ -44,7 +45,7 @@
 
 .bar {
   width: 8px;
-  background: linear-gradient(to top, #e6960a, #ffd88a);
+  background: linear-gradient(to top, var(--cf-accent), var(--cf-accent-hover));
   max-height: 24px;
   border-radius: 3px;
   transition: height 80ms linear;
@@ -56,7 +57,7 @@
 }
 
 .transcribing-text {
-  color: white;
+  color: var(--cf-text-primary);
   font-size: 12px;
   font-family:
     "Nunito",
@@ -95,7 +96,7 @@
 }
 
 .cancel-button:hover {
-  background: rgba(230, 150, 10, 0.2);
+  background: var(--cf-accent-soft);
   transform: scale(1.05);
 }
 

@@ -10,6 +10,7 @@ import "./RecordingOverlay.css";
 import { commands } from "@/bindings";
 import i18n, { syncLanguageFromSettings } from "@/i18n";
 import { getLanguageDirection } from "@/lib/utils/rtl";
+import { syncThemeFromSettings } from "@/lib/utils/theme";
 
 type OverlayState = "recording" | "transcribing";
 
@@ -22,11 +23,15 @@ const RecordingOverlay: React.FC = () => {
   const direction = getLanguageDirection(i18n.language);
 
   useEffect(() => {
+    // Sync theme on initial mount so CSS vars are set before first show
+    syncThemeFromSettings();
+
     const setupEventListeners = async () => {
       // Listen for show-overlay event from Rust
       const unlistenShow = await listen("show-overlay", async (event) => {
-        // Sync language from settings each time overlay is shown
+        // Sync language and theme from settings each time overlay is shown
         await syncLanguageFromSettings();
+        syncThemeFromSettings();
         const overlayState = event.payload as OverlayState;
         setState(overlayState);
         setIsVisible(true);
@@ -62,11 +67,16 @@ const RecordingOverlay: React.FC = () => {
     setupEventListeners();
   }, []);
 
+  const accentColor =
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--cf-accent")
+      .trim() || "#e6960a";
+
   const getIcon = () => {
     if (state === "recording") {
-      return <MicrophoneIcon />;
+      return <MicrophoneIcon color={accentColor} />;
     } else {
-      return <TranscriptionIcon />;
+      return <TranscriptionIcon color={accentColor} />;
     }
   };
 
@@ -107,7 +117,7 @@ const RecordingOverlay: React.FC = () => {
               commands.cancelOperation();
             }}
           >
-            <CancelIcon />
+            <CancelIcon color={accentColor} />
           </div>
         )}
       </div>
