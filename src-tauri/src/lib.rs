@@ -322,6 +322,7 @@ pub fn run() {
     }
 
     let mut builder = tauri::Builder::default()
+        .device_event_filter(tauri::DeviceEventFilter::Always)
         .plugin(tauri_plugin_dialog::init())
         .plugin(
             LogBuilder::new()
