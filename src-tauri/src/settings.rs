@@ -280,6 +280,8 @@ pub struct AppSettings {
     pub keyboard_implementation: KeyboardImplementation,
     #[serde(default = "default_paste_delay_ms")]
     pub paste_delay_ms: u64,
+    #[serde(default)]
+    pub custom_filler_words: Option<Vec<String>>,
 }
 
 fn default_model() -> String {
@@ -420,6 +422,7 @@ pub fn get_default_settings() -> AppSettings {
         app_language: default_app_language(),
         keyboard_implementation: KeyboardImplementation::default(),
         paste_delay_ms: default_paste_delay_ms(),
+        custom_filler_words: None,
     }
 }
 
